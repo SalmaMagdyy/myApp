@@ -28,38 +28,5 @@ class ProductScreen extends StatelessWidget {
   itemCount: _products.length,);
   }
 }
-    /* return  Center(
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        child:InkWell(
-          onTap: (){},
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Ink.image(image: NetworkImage("https://media.istockphoto.com/photos/running-shoes-picture-id1249496770?b=1&k=20&m=1249496770&s=170667a&w=0&h=_SUv4odBqZIzcXvdK9rqhPBIenbyBspPFiQOSDRi-RI="),
-),
-            Positioned(
-              bottom: 16,
-              right: 16,
-              left:16 ,
-              child:Text('blue running shoes',
-              style: TextStyle(
-                backgroundColor: Colors.black,
-                color: Colors.white,
-                fontSize: 24,
-              ),)
-              )
-          ],
-        ),
-        
-      )
-      )
-      
-    );
-     */
-
-                   
-	
+    
+    

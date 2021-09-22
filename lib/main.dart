@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
           'm_product': (context)=>ManageProduct(),
           'add_product':(context)=>AddProduct(),
           'edit_product':(context)=>EditProduct(),
-
         },
       ),
     );}}

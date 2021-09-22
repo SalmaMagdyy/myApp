@@ -1,6 +1,9 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-enum Status{FavoriteScreen}
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+enum Status{FavoriteScreen,}
 class Product{
   String id, title, description, imgUrl;
   double price;
@@ -12,7 +15,7 @@ class Product{
     required this.description,
     required this.imgUrl,
     required this.price,
-    required this.isFav,
+    this.isFav=false,
     this.status,
   
 
@@ -41,16 +44,54 @@ class Products with ChangeNotifier{
     ),
     
   ];
-   void changeStatus(String id,Status status){
-      _products.firstWhere((element) => element.id==id).status=status;
-      notifyListeners();
-   }
-    List<Product> filterTasks ({Status? status}){
+  List<Product> filterTasks ({Status? status}){
      return _products.where((element) => element.status==status).toList();
+    }
+      Future <void> addTask(
+      String title,
+      String description,
+      String imgUrl,
+      double price,
+    )async{
+      var url=Uri.parse('https://final-fbf07-default-rtdb.firebaseio.com/products.json');
+      var response=await http.post( url,
+      body: json.encode(
+        {
+        'title':title,
+         'description':description,
+         'imgUrl':imgUrl,
+         'price':price.toString(),
+      })
+      );
+      print(response.body);
+      _products.add(
+       Product(
+        id:json.decode(response.body)['name'],
+        title: title,
+        description: description,
+        imgUrl: imgUrl,
+        price: price));
+        notifyListeners();
     }
     void removeProduct (String id){
     _products.removeWhere((element) => element.id==id);
     print(_products.length);
     notifyListeners();
   }
+  void changeStatus(String id,Status status){
+      _products.firstWhere((element) => element.id==id).status=status;
+      notifyListeners();
+   }
+   Product findById (String id){
+      return _products.firstWhere((element) => element.id==id);
+      
+    }  
+   void toggleFavStatus(bool isFav){
+      _products.where((element) => isFav=! isFav);
+      notifyListeners();
+      }
+  
+    
+    
+  
    }
